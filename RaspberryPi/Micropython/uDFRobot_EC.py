@@ -1,5 +1,4 @@
-import time
-import sys
+import machine
 
 _kvalue        = 1.0
 _kvalueLow     = 1.0
@@ -18,8 +17,8 @@ class DFRobot_EC():
                 kvalueHighLine = kvalueHighLine.strip('kvalueHigh=')
                 _kvalueHigh    = float(kvalueHighLine)
         except:
-            print("ecdata.py ERROR ! Please run DFRobot_EC_Reset")
-            sys.exit(1)
+            print("ecdata.py ERROR ! Reset to default parameters")
+            self.reset()
     def readEC(self,voltage,temperature):
         global _kvalueLow
         global _kvalueHigh
@@ -45,10 +44,10 @@ class DFRobot_EC():
             flist=f.readlines()
             flist[0]='kvalueLow='+ str(KValueTemp) + '\n'
             f=open('ecdata.py','w')
-            f.write(flist)
+            f.write(''.join(flist))
             f.close()
             print(">>>EC:1.413us/cm Calibration completed,Please enter Ctrl+C exit calibration in 5 seconds")
-            time.sleep(5.0)
+            machine.reset()
         elif (rawEC>9 and rawEC<16.8):
             compECsolution = 12.88*(1.0+0.0185*(temperature-25.0))
             KValueTemp = 820.0*200.0*compECsolution/1000.0/voltage
@@ -60,9 +59,10 @@ class DFRobot_EC():
             f.write(''.join(flist))
             f.close()
             print(">>>EC:12.88ms/cm Calibration completed,Please enter Ctrl+C exit calibration in 5 seconds")
-            time.sleep(5.0)
+            machine.reset()
         else:
             print(">>>Buffer Solution Error Try Again<<<")
+            machine.reset()
     def reset(self):
         _kvalueLow              = 1.0;
         _kvalueHigh             = 1.0;
@@ -75,6 +75,7 @@ class DFRobot_EC():
             f.write(flist)
             f.close()
             print(">>>Reset to default parameters<<<")
+            machine.reset()
         except:
             f=open('ecdata.py','r')
             flist=f.readlines()
@@ -84,3 +85,4 @@ class DFRobot_EC():
             f.write(''.join(flist))
             f.close()
             print(">>>Reset to default parameters<<<")
+            machine.reset()
