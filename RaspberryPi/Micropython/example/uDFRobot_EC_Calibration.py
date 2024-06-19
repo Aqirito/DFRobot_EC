@@ -17,4 +17,3 @@ while True:
     
     #Calibrate the calibration data
     ec.calibration(adc_value_12bit,temperature)
-    utime.sleep(3.0)
