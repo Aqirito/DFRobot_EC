@@ -44,11 +44,13 @@ void calibration(float voltage, float temperature, char* cmd);
 
 ## Compatibility
 
-MCU                | Work Well | Work Wrong | Untested  | Remarks
------------------- | :----------: | :----------: | :---------: | -----
-Arduino Uno  |      √       |             |            | 
-Leonardo  |      √       |             |            | 
-Meag2560 |      √       |             |            | 
+MCU                  | Work Well    | Work Wrong   | Untested     | Remarks
+-------------------- | :----------: | :----------: | :----------: | ------------
+Arduino Uno          |      √       |              |              | 
+Leonardo             |      √       |              |              | 
+Meag2560             |      √       |              |              |
+Raspberry Pi Pico WH |      √       |              |              | Micropython
+ESP32                |      √       |              |      √       | Micropython
 
 ## History
 
